@@ -1,0 +1,81 @@
+{
+  "info": {
+    "name": "Get User Details",
+    "_postman_id": "a4e8d7c2-5b3a-47f9-9e8b-1f0c76d8e9a1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "name": "Get User Details",
+  "request": {
+    "method": "GET",
+    "url": {
+      "path": ["users", ":id"],
+      "host": ["{{baseUrl}}"],
+      "query": [],
+      "variable": [
+        {
+          "key": "id",
+          "value": "",
+          "description": "The user ID"
+        }
+      ]
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": [
+        {
+          "key": "token",
+          "value": "{{token}}",
+          "type": "string"
+        }
+      ]
+    },
+    "header": [
+      {
+        "key": "Content-Type",
+        "value": "application/json"
+      }
+    ]
+  },
+  "response": [
+    {
+      "name": "Success Response",
+      "originalRequest": {
+        "method": "GET",
+        "url": {
+          "path": ["users", ":id"],
+          "host": ["{{baseUrl}}"],
+          "query": [],
+          "variable": [
+            {
+              "key": "id",
+              "value": "123"
+            }
+          ]
+        }
+      },
+      "status": "OK",
+      "code": 200,
+      "_postman_previewlanguage": "json",
+      "header": [
+        {
+          "key": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "id": "123",
+        "username": "johndoe",
+        "email": "john@example.com",
+        "avatar": "https://ui-avatars.com/api/?name=John+Doe",
+        "role": "user",
+        "created_at": "2025-01-01T00:00:00.000Z",
+        "updated_at": "2025-01-01T00:00:00.000Z",
+        "_count": {
+          "documents": 5,
+          "signatures": 2
+        }
+      }
+    }
+  ],
+  "description": "Get details for a specific user. Users can only view their own profiles unless they are admins."
+}

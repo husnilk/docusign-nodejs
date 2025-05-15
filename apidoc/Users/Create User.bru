@@ -1,0 +1,100 @@
+{
+  "info": {
+    "name": "Create User",
+    "_postman_id": "b9c8d7a6-5e3a-47f9-9e8b-1f0c76d8e9a1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "name": "Create User",
+  "request": {
+    "method": "POST",
+    "url": {
+      "path": ["users"],
+      "host": ["{{baseUrl}}"]
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": [
+        {
+          "key": "token",
+          "value": "{{token}}",
+          "type": "string"
+        }
+      ]
+    },
+    "header": [
+      {
+        "key": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "body": {
+      "mode": "raw",
+      "raw": "{\n  \"username\": \"newuser\",\n  \"email\": \"newuser@example.com\",\n  \"password\": \"password123\",\n  \"avatar\": \"https://ui-avatars.com/api/?name=New+User\"\n}",
+      "options": {
+        "raw": {
+          "language": "json"
+        }
+      }
+    }
+  },
+  "response": [
+    {
+      "name": "Success Response",
+      "originalRequest": {
+        "method": "POST",
+        "url": {
+          "path": ["users"],
+          "host": ["{{baseUrl}}"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"newuser\",\n  \"email\": \"newuser@example.com\",\n  \"password\": \"password123\",\n  \"avatar\": \"https://ui-avatars.com/api/?name=New+User\"\n}"
+        }
+      },
+      "status": "Created",
+      "code": 201,
+      "_postman_previewlanguage": "json",
+      "header": [
+        {
+          "key": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "id": "550e8400-e29b-41d4-a716-446655440000",
+        "username": "newuser",
+        "email": "newuser@example.com",
+        "avatar": "https://ui-avatars.com/api/?name=New+User",
+        "created_at": "2025-05-15T12:00:00.000Z",
+        "updated_at": "2025-05-15T12:00:00.000Z"
+      }
+    },
+    {
+      "name": "Error - Email Exists",
+      "originalRequest": {
+        "method": "POST",
+        "url": {
+          "path": ["users"],
+          "host": ["{{baseUrl}}"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"newuser\",\n  \"email\": \"existing@example.com\",\n  \"password\": \"password123\",\n  \"avatar\": \"https://ui-avatars.com/api/?name=New+User\"\n}"
+        }
+      },
+      "status": "Conflict",
+      "code": 409,
+      "_postman_previewlanguage": "json",
+      "header": [
+        {
+          "key": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "error": "User with this email already exists"
+      }
+    }
+  ],
+  "description": "Create a new user. Only administrators can create users."
+}

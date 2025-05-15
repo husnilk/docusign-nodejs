@@ -1,0 +1,15 @@
+meta {
+  name: Profile - Me
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://{{host}}/profile/me
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}

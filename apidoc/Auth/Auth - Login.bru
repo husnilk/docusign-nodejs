@@ -1,0 +1,16 @@
+meta {
+  name: Auth - Login
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://{{host}}/auth/login
+  body: formUrlEncoded
+  auth: inherit
+}
+
+body:form-urlencoded {
+  email: admin@server.com
+  password: password
+}

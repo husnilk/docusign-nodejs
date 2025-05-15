@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Document {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  owner_id    String
+  originalName  String
+  filename    String
+  private     Boolean  @default(false)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  
+  owner       User     @relation(fields: [owner_id], references: [id])
+  signatures  Signature[]
+
+  @@map("documents")
+}
+
+model User {
+  id         String      @id @default(uuid())
+  username   String
+  email      String      @unique
+  password   String
+  avatar     String?
+  role       String      @default("user")
+  created_at DateTime    @default(now())
+  updated_at DateTime    @updatedAt
+  
+  documents  Document[]
+  signatures Signature[]
+
+  @@map("users")
+}
+
+model Signature {
+  id          String    @id @default(uuid())
+  user_id     String
+  document_id String
+  position    Json      // Stores x, y coordinates and other positioning data
+  status      String    @default("pending") // e.g., "pending", "signed", "rejected"
+  signed_at   DateTime?
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  
+  user        User      @relation(fields: [user_id], references: [id])
+  document    Document  @relation(fields: [document_id], references: [id])
+
+  @@map("signatures")
+}
